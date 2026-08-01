@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:rgb(133, 95, 0);
+    animation: gradientMove 8s ease infinite;
+    background-size: 10000% 10000%;
+}
+.container {
+    position: top;
+    display: flex;
+    flex-direction: column; /* muda o eixo principal pra vertical */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: rgb(255, 255, 255);
+}
+
+a {
+color: rgb(241, 241, 241); /* mesma cor do resto do texto, por exemplo */
+}
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* centraliza horizontalmente (eixo cruzado) */
+    color: rgb(255, 255, 255);
+    gap: 10px;
+}
+
+.contato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* centraliza horizontalmente (eixo cruzado) */
+    color: rgb(220, 220, 220);
+    gap: 10px;
+}
+
+.contact-info {
+    display: flex;
+    position: relative;
+    gap: 400px;
+    left: 2%;
+}
