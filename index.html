@@ -3,142 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfólio de xyz22 — programador Python, C e Java. Projetos, estudos e contato.">
+    <meta name="description" content="Portfólio de xyz22 — desenvolvedor de software. Python, C e Java. Projetos, estudos e contato.">
+    <meta name="theme-color" content="#09090b">
     <meta property="og:title" content="xyz22 — Portfólio">
-    <meta property="og:description" content="Programador Python, C e Java. Veja meus projetos.">
+    <meta property="og:description" content="Desenvolvedor de software. Python, C e Java.">
     <meta property="og:type" content="website">
     <title>xyz22 — Portfólio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 </head>
 <body>
-    <script>
-        alert("s2");
-    </script>
+    <script>alert("s2");</script>
 
-    <header class="hero">
-        <div class="wrap">
-            <p class="kicker reveal">portfólio</p>
-            <h1 class="reveal d1">xyz22</h1>
-            <p class="tagline reveal d2">Programador <b>Python</b> · <b>C</b> · <b>Java</b></p>
-            <nav class="menu reveal d3">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="#topo">
+                <i data-lucide="terminal" class="brand-icon"></i>
+                <span>xyz22</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
                 <a href="#sobre">Sobre</a>
                 <a href="#projetos">Projetos</a>
                 <a href="#contato">Contato</a>
             </nav>
+            <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu">
+                <i data-lucide="menu" class="icon-open"></i>
+                <i data-lucide="x" class="icon-close"></i>
+            </button>
         </div>
-        <span class="scroll-hint" aria-hidden="true">↓</span>
     </header>
 
-    <main>
-        <section id="sobre">
-            <div class="wrap">
-                <h2 class="reveal"><span>Sobre</span></h2>
+    <main id="conteudo">
+        <section class="hero" id="topo">
+            <div class="container">
+                <p class="eyebrow reveal">Portfólio de desenvolvedor</p>
+                <h1 class="reveal d1">xyz22</h1>
+                <p class="hero-role reveal d2">Desenvolvedor de software — <span>Python</span>, <span>C</span> e <span>Java</span></p>
+                <p class="hero-text reveal d3">
+                    Tenho 14 anos e estudo programação há 2 anos. Aprendo construindo projetos
+                    próprios: de jogos em Java a ferramentas de rede e sistema em Python.
+                </p>
+                <div class="hero-actions reveal d4">
+                    <a class="btn btn-primary" href="#projetos">
+                        Ver projetos
+                        <i data-lucide="arrow-down-right"></i>
+                    </a>
+                    <a class="btn btn-ghost" href="#contato">
+                        Contato
+                        <i data-lucide="send"></i>
+                    </a>
+                </div>
+            </div>
+            <a class="scroll-hint" href="#sobre" aria-label="Rolar para a seção Sobre">
+                <i data-lucide="chevron-down"></i>
+            </a>
+        </section>
+
+        <section class="section" id="sobre">
+            <div class="container">
+                <p class="eyebrow reveal">Sobre</p>
+                <h2 class="reveal d1">Quem está por trás do código</h2>
+                <p class="section-text reveal d2">
+                    Comecei a programar por curiosidade e hoje é o que faço todos os dias.
+                    Gosto de entender como as coisas funcionam de verdade — da lógica da
+                    linguagem ao comportamento do sistema — e transformar isso em projetos
+                    próprios, errando, corrigindo e aprendendo no processo.
+                </p>
                 <div class="stats">
                     <div class="stat reveal d1">
+                        <i data-lucide="user"></i>
                         <span class="stat-num" data-count="14">0</span>
                         <span class="stat-label">anos de idade</span>
                     </div>
                     <div class="stat reveal d2">
+                        <i data-lucide="clock"></i>
                         <span class="stat-num" data-count="2">0</span>
-                        <span class="stat-label">anos de código</span>
+                        <span class="stat-label">anos estudando programação</span>
                     </div>
                     <div class="stat reveal d3">
+                        <i data-lucide="code-2"></i>
                         <span class="stat-num" data-count="3">0</span>
-                        <span class="stat-label">linguagens</span>
+                        <span class="stat-label">linguagens no dia a dia</span>
                     </div>
                 </div>
-                <div class="skill-block reveal">
-                    <h3>Experiência</h3>
-                    <div class="chips">
-                        <span class="chip is-on">Python</span>
-                        <span class="chip is-on">C</span>
-                        <span class="chip is-on">Java</span>
+                <div class="techs">
+                    <div class="tech-group reveal">
+                        <h3>Conhecimentos atuais</h3>
+                        <ul class="badges">
+                            <li class="badge is-current">Python</li>
+                            <li class="badge is-current">C</li>
+                            <li class="badge is-current">Java</li>
+                        </ul>
                     </div>
-                    <h3>Quero aprender</h3>
-                    <div class="chips">
-                        <span class="chip">C++</span>
-                        <span class="chip">TypeScript</span>
-                        <span class="chip">Go</span>
+                    <div class="tech-group reveal d2">
+                        <h3>Quero aprender</h3>
+                        <ul class="badges">
+                            <li class="badge">C++</li>
+                            <li class="badge">TypeScript</li>
+                            <li class="badge">Go</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="projetos">
-            <div class="wrap">
-                <h2 class="reveal"><span>Projetos</span></h2>
-                <div class="cards">
-                    <a class="card reveal d1" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
-                        <span class="card-head">
-                            <span class="card-title">VoiceCord with RPC</span>
-                            <span class="card-arrow">→</span>
+        <section class="section" id="projetos">
+            <div class="container">
+                <p class="eyebrow reveal">Projetos</p>
+                <h2 class="reveal d1">O que eu construí</h2>
+                <p class="section-text reveal d2">
+                    Projetos próprios feitos para aprender — cada um começou como uma
+                    pergunta e terminou como código funcionando.
+                </p>
+                <div class="projects">
+                    <a class="project reveal d1" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
+                        <span class="project-icon"><i data-lucide="bot"></i></span>
+                        <span class="project-body">
+                            <span class="project-title">VoiceCord with RPC</span>
+                            <span class="project-desc">Selfbot do Discord para atividades relacionadas a RPC.</span>
                         </span>
-                        <span class="card-text">Selfbot do Discord para farmar tempo em call com um RPC: "22 bot's"</span>
-                        <span class="card-tag">Python</span>
+                        <span class="project-foot">
+                            <span class="project-tag">Python</span>
+                            <span class="project-link">Repositório <i data-lucide="arrow-up-right"></i></span>
+                        </span>
                     </a>
-                    <a class="card reveal d2" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
-                        <span class="card-head">
-                            <span class="card-title">RATInpy</span>
-                            <span class="card-arrow">→</span>
+                    <a class="project reveal d2" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
+                        <span class="project-icon"><i data-lucide="network"></i></span>
+                        <span class="project-body">
+                            <span class="project-title">Inpy — Python RAT</span>
+                            <span class="project-desc">Ferramenta em Python para coleta de informações do computador.</span>
                         </span>
-                        <span class="card-text">RAT feito em Python com objetivo de coletar informações do PC da vítima</span>
-                        <span class="card-tag">Python</span>
+                        <span class="project-foot">
+                            <span class="project-tag">Python</span>
+                            <span class="project-link">Repositório <i data-lucide="arrow-up-right"></i></span>
+                        </span>
                     </a>
-                    <a class="card reveal d3" href="https://github.com/xyz22x/systemWHOIS" target="_blank" rel="noopener">
-                        <span class="card-head">
-                            <span class="card-title">systemWHOIS</span>
-                            <span class="card-arrow">→</span>
+                    <a class="project reveal d3" href="https://github.com/xyz22x/systemWHOIS" target="_blank" rel="noopener">
+                        <span class="project-icon"><i data-lucide="globe"></i></span>
+                        <span class="project-body">
+                            <span class="project-title">systemWHOIS</span>
+                            <span class="project-desc">Consulta WHOIS de domínios da internet, feito em Java 8+.</span>
                         </span>
-                        <span class="card-text">Sistema de whois (Java 8+) para pegar informações de um domínio da internet</span>
-                        <span class="card-tag">Java</span>
+                        <span class="project-foot">
+                            <span class="project-tag">Java</span>
+                            <span class="project-link">Repositório <i data-lucide="arrow-up-right"></i></span>
+                        </span>
                     </a>
-                    <a class="card reveal d4" href="https://github.com/xyz22x/NewFlappyBird" target="_blank" rel="noopener">
-                        <span class="card-head">
-                            <span class="card-title">New Flappy Bird</span>
-                            <span class="card-arrow">→</span>
+                    <a class="project reveal d4" href="https://github.com/xyz22x/NewFlappyBird" target="_blank" rel="noopener">
+                        <span class="project-icon"><i data-lucide="gamepad-2"></i></span>
+                        <span class="project-body">
+                            <span class="project-title">New Flappy Bird</span>
+                            <span class="project-desc">Jogo inspirado em Flappy Bird, desenvolvido com Java Swing.</span>
                         </span>
-                        <span class="card-text">Jogo do Flappy Bird feito em Java com a biblioteca Swing</span>
-                        <span class="card-tag">Java</span>
+                        <span class="project-foot">
+                            <span class="project-tag">Java</span>
+                            <span class="project-link">Repositório <i data-lucide="arrow-up-right"></i></span>
+                        </span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="contato">
-            <div class="wrap">
-                <h2 class="reveal"><span>Contato</span></h2>
-                <div class="cards">
-                    <button class="card is-button reveal d1" type="button" data-copy="2024.s">
-                        <span class="card-head">
-                            <span class="card-title">Discord</span>
-                            <span class="card-arrow">⧉</span>
+        <section class="section" id="contato">
+            <div class="container">
+                <p class="eyebrow reveal">Contato</p>
+                <h2 class="reveal d1">Vamos conversar</h2>
+                <p class="section-text reveal d2">
+                    Pode me chamar em qualquer um dos canais abaixo — respondo rápido.
+                </p>
+                <div class="contact-grid">
+                    <button class="contact-card reveal d1" type="button" data-copy="2024.s" aria-label="Copiar Discord 2024.s">
+                        <span class="contact-icon"><i data-lucide="message-circle"></i></span>
+                        <span class="contact-body">
+                            <span class="contact-label">Discord</span>
+                            <span class="contact-value">2024.s</span>
                         </span>
-                        <span class="card-text">2024.s</span>
-                        <span class="card-tag hint">clique para copiar</span>
+                        <span class="contact-action">
+                            <i data-lucide="copy" class="icon-copy"></i>
+                            <i data-lucide="check" class="icon-check"></i>
+                        </span>
                     </button>
-                    <a class="card reveal d2" href="https://instagram.com/marcoscdz22" target="_blank" rel="noopener">
-                        <span class="card-head">
-                            <span class="card-title">Instagram</span>
-                            <span class="card-arrow">→</span>
+                    <a class="contact-card reveal d2" href="https://instagram.com/marcoscdz22" target="_blank" rel="noopener">
+                        <span class="contact-icon"><i data-lucide="instagram"></i></span>
+                        <span class="contact-body">
+                            <span class="contact-label">Instagram</span>
+                            <span class="contact-value">@marcoscdz22</span>
                         </span>
-                        <span class="card-text">@marcoscdz22</span>
-                        <span class="card-tag hint">seguir</span>
+                        <span class="contact-action">
+                            <i data-lucide="arrow-up-right"></i>
+                        </span>
                     </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="wrap">
-            <p>© 2026 xyz22 — feito à mão</p>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>© 2026 xyz22</p>
+            <a class="footer-link" href="https://github.com/xyz22x" target="_blank" rel="noopener">
+                <i data-lucide="github"></i>
+                github.com/xyz22x
+            </a>
         </div>
     </footer>
 
     <script>
         const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // reveal on scroll
+        if (window.lucide) lucide.createIcons();
+        document.addEventListener("DOMContentLoaded", () => { if (window.lucide) lucide.createIcons(); });
+
+        const toggle = document.getElementById("navToggle");
+        const header = document.querySelector(".nav");
+        toggle.addEventListener("click", () => {
+            const open = header.classList.toggle("open");
+            toggle.setAttribute("aria-expanded", open);
+            toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+        });
+        document.querySelectorAll("#navLinks a").forEach((a) => {
+            a.addEventListener("click", () => {
+                header.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+            });
+        });
+
         const io = new IntersectionObserver((entries) => {
             for (const e of entries) {
                 if (e.isIntersecting) {
@@ -149,7 +243,6 @@
         }, { threshold: 0.12 });
         document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-        // counters
         const cio = new IntersectionObserver((entries) => {
             for (const e of entries) {
                 if (!e.isIntersecting) continue;
@@ -168,24 +261,17 @@
         }, { threshold: 0.6 });
         document.querySelectorAll(".stat-num").forEach((el) => cio.observe(el));
 
-        // copy discord
-        const btn = document.querySelector(".card[data-copy]");
-        if (btn) {
-            btn.addEventListener("click", () => {
-                const hint = btn.querySelector(".hint");
-                navigator.clipboard.writeText(btn.dataset.copy).then(() => {
-                    btn.classList.add("copied");
-                    hint.textContent = "copiado ✓";
-                }).catch(() => {
-                    hint.textContent = "2024.s — selecione e copie";
-                }).finally(() => {
-                    setTimeout(() => {
-                        btn.classList.remove("copied");
-                        hint.textContent = "clique para copiar";
-                    }, 1800);
-                });
-            });
-        }
+        const copyBtn = document.querySelector(".contact-card[data-copy]");
+        copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(copyBtn.dataset.copy).then(() => {
+                copyBtn.classList.add("copied");
+                copyBtn.setAttribute("aria-label", "Discord copiado");
+                setTimeout(() => {
+                    copyBtn.classList.remove("copied");
+                    copyBtn.setAttribute("aria-label", "Copiar Discord 2024.s");
+                }, 1800);
+            }).catch(() => {});
+        });
     </script>
 </body>
 </html>
