@@ -11,43 +11,57 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <script>
+        alert("s2");
+    </script>
+
+    <div class="bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="stars" aria-hidden="true"></div>
+    </div>
+
     <header class="hero">
         <div class="container">
-            <p class="kicker">portfólio</p>
-            <h1>xyz22</h1>
-            <p class="tagline">Programador Python · C · Java</p>
-            <nav class="menu">
+            <p class="kicker reveal">portfólio</p>
+            <h1 class="glow reveal d1">xyz22</h1>
+            <p class="tagline reveal d2">Programador <span class="accent">Python</span> · <span class="accent">C</span> · <span class="accent">Java</span></p>
+            <nav class="menu reveal d3">
                 <a href="#sobre">Sobre</a>
+                <span class="menu-dot"></span>
                 <a href="#projetos">Projetos</a>
+                <span class="menu-dot"></span>
                 <a href="#contato">Contato</a>
             </nav>
+            <span class="scroll-hint reveal d4">↓</span>
         </div>
     </header>
 
     <section id="sobre" class="container">
-        <h2>Sobre</h2>
+        <h2 class="reveal">Sobre<span class="h2-line"></span></h2>
         <div class="about-grid">
-            <div class="about-card">
-                <span class="about-num">14</span>
+            <div class="about-card reveal d1">
+                <span class="about-num" data-count="14">0</span>
                 <p>anos de idade</p>
             </div>
-            <div class="about-card">
-                <span class="about-num">2</span>
+            <div class="about-card reveal d2">
+                <span class="about-num" data-count="2">0</span>
                 <p>anos estudando programação</p>
             </div>
-            <div class="about-card">
-                <span class="about-num">3</span>
+            <div class="about-card reveal d3">
+                <span class="about-num" data-count="3">0</span>
                 <p>linguagens no dia a dia</p>
             </div>
         </div>
-        <div class="skills">
-            <h3>Experiência:</h3>
+        <div class="skills reveal">
+            <h3>Experiência</h3>
             <div class="chips">
                 <span class="chip solid">Python</span>
                 <span class="chip solid">C</span>
                 <span class="chip solid">Java</span>
             </div>
-            <h3>Quero aprender:</h3>
+            <h3>Quero aprender</h3>
             <div class="chips">
                 <span class="chip">C++</span>
                 <span class="chip">TypeScript</span>
@@ -57,25 +71,37 @@
     </section>
 
     <section id="projetos" class="container">
-        <h2>Projetos</h2>
+        <h2 class="reveal">Projetos<span class="h2-line"></span></h2>
         <div class="project-list">
-            <a class="project" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
-                <span class="project-name">VoiceCord with RPC</span>
+            <a class="project reveal d1" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
+                <span class="project-top">
+                    <span class="project-name">VoiceCord with RPC</span>
+                    <span class="project-arrow">→</span>
+                </span>
                 <span class="project-desc">Selfbot do Discord para farmar tempo em call com um RPC: "22 bot's"</span>
                 <span class="project-lang">Python</span>
             </a>
-            <a class="project" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
-                <span class="project-name">RATInpy</span>
+            <a class="project reveal d2" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
+                <span class="project-top">
+                    <span class="project-name">RATInpy</span>
+                    <span class="project-arrow">→</span>
+                </span>
                 <span class="project-desc">RAT feito em Python com objetivo de coletar informações do PC da vítima</span>
                 <span class="project-lang">Python</span>
             </a>
-            <a class="project" href="https://github.com/xyz22x/systemWHOIS" target="_blank" rel="noopener">
-                <span class="project-name">systemWHOIS</span>
+            <a class="project reveal d3" href="https://github.com/xyz22x/systemWHOIS" target="_blank" rel="noopener">
+                <span class="project-top">
+                    <span class="project-name">systemWHOIS</span>
+                    <span class="project-arrow">→</span>
+                </span>
                 <span class="project-desc">Sistema de whois (Java 8+) para pegar informações de um domínio da internet</span>
                 <span class="project-lang">Java</span>
             </a>
-            <a class="project" href="https://github.com/xyz22x/NewFlappyBird" target="_blank" rel="noopener">
-                <span class="project-name">New Flappy Bird</span>
+            <a class="project reveal d4" href="https://github.com/xyz22x/NewFlappyBird" target="_blank" rel="noopener">
+                <span class="project-top">
+                    <span class="project-name">New Flappy Bird</span>
+                    <span class="project-arrow">→</span>
+                </span>
                 <span class="project-desc">Jogo do Flappy Bird feito em Java com a biblioteca Swing</span>
                 <span class="project-lang">Java</span>
             </a>
@@ -83,21 +109,82 @@
     </section>
 
     <section id="contato" class="container">
-        <h2>Contato</h2>
+        <h2 class="reveal">Contato<span class="h2-line"></span></h2>
         <div class="contact-info">
-            <a class="contact-card" href="https://discord.com/users/" target="_blank" rel="noopener">
+            <button class="contact-card reveal d1" type="button" data-copy="2024.s">
                 <span class="contact-label">Discord</span>
                 <span class="contact-value">2024.s</span>
-            </a>
-            <a class="contact-card" href="https://instagram.com/marcoscdz22" target="_blank" rel="noopener">
+                <span class="contact-hint">copiar</span>
+            </button>
+            <a class="contact-card reveal d2" href="https://instagram.com/marcoscdz22" target="_blank" rel="noopener">
                 <span class="contact-label">Instagram</span>
                 <span class="contact-value">@marcoscdz22</span>
+                <span class="contact-hint">seguir</span>
             </a>
         </div>
     </section>
 
-    <footer>
+    <footer class="reveal">
         <p>© 2026 xyz22 · feito à mão</p>
     </footer>
+
+    <script>
+        // reveal on scroll
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    e.target.classList.add("in");
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+        // counter animation
+        const cio = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (!e.isIntersecting) return;
+                const el = e.target;
+                const end = parseInt(el.dataset.count, 10);
+                const t0 = performance.now();
+                const step = (t) => {
+                    const p = Math.min((t - t0) / 900, 1);
+                    el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+                    if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+                cio.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll(".about-num").forEach((el) => cio.observe(el));
+
+        // stars
+        const stars = document.querySelector(".stars");
+        for (let i = 0; i < 70; i++) {
+            const s = document.createElement("i");
+            s.style.left = Math.random() * 100 + "%";
+            s.style.top = Math.random() * 100 + "%";
+            s.style.setProperty("--sd", (2 + Math.random() * 4) + "s");
+            s.style.setProperty("--sr", Math.random() * 2 + "s");
+            s.style.willChange = "opacity";
+            stars.appendChild(s);
+        }
+
+        // discord card copies the handle
+        const dc = document.querySelector(".contact-card[data-copy]");
+        if (dc) {
+            dc.addEventListener("click", () => {
+                navigator.clipboard.writeText(dc.dataset.copy).then(() => {
+                    dc.classList.add("copied");
+                    const hint = dc.querySelector(".contact-hint");
+                    hint.textContent = "copiado ✓";
+                    setTimeout(() => {
+                        dc.classList.remove("copied");
+                        hint.textContent = "copiar";
+                    }, 1600);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
