@@ -1,6 +1,6 @@
 # xyz22.github.io
 
-Portfólio pessoal de xyz22 — HTML, CSS e JavaScript puros, sem build.
+Portfólio pessoal de Marco (GitHub: xyz22x) — HTML, CSS e JavaScript puros, sem build.
 
 ## Configurar o card do Discord (Lanyard)
 
@@ -25,6 +25,8 @@ Como obter o ID: Discord → Configurações → Avançado → ativar **Modo des
 O ID é público por natureza (aparece em qualquer perfil), então não é segredo — não há problema em deixá-lo no código de um site estático. Nenhum token ou credencial é usado ou necessário.
 
 Enquanto o ID estiver vazio, o card exibe o estado manual: nome, `@2024.s`, avatar de letra e o indicador "indisponível", e o botão copia o identificador `2024.s`.
+
+O valor atual já configurado: `1310038822612111481`.
 
 ### 2. Ativar o monitoramento no Lanyard
 
