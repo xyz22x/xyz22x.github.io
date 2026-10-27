@@ -176,7 +176,9 @@
                 </p>
                 <div class="contact-layout reveal">
                     <article class="discord-card" id="discordCard" aria-busy="true">
-                        <div class="discord-banner" aria-hidden="true"></div>
+                        <div class="discord-banner" aria-hidden="true">
+                            <img class="discord-banner-img" id="dcBannerImg" alt="" hidden>
+                        </div>
                         <div class="discord-head">
                             <div class="discord-avatar">
                                 <img id="dcAvatarImg" alt="Avatar do Discord" hidden>
@@ -192,7 +194,8 @@
                             <p class="discord-name">
                                 <span id="dcName">Marco</span>
                             </p>
-                            <p class="discord-username" id="dcUser">@2024.s</p>
+                            <p class="discord-username" id="dcUser">@_y55h</p>
+                            <div class="discord-badges" id="dcBadges" hidden></div>
                             <p class="discord-status" id="dcStatus">carregando presença…</p>
                         </div>
                         <div class="discord-activity" id="dcActivity" hidden>
@@ -208,7 +211,7 @@
                                 </span>
                             </div>
                         </div>
-                        <p class="discord-bio">gg</p>
+                        <p class="discord-bio" id="dcBio" hidden></p>
                         <div class="discord-actions">
                             <button class="btn btn-ghost" type="button" id="dcCopy">
                                 <svg class="icon icon-copy"><use href="#i-copy"/></svg>
@@ -224,11 +227,11 @@
                     </article>
                     <div class="contact-side">
                         <div class="contact-grid">
-                            <button class="contact-card" type="button" data-copy="2024.s" aria-label="Copiar Discord 2024.s">
+                            <button class="contact-card" type="button" data-copy="_y55h" aria-label="Copiar Discord _y55h">
                                 <svg class="icon contact-glyph"><use href="#i-message-circle"/></svg>
                                 <span class="contact-body">
                                     <span class="contact-label">Discord</span>
-                                    <span class="contact-value">2024.s</span>
+                                    <span class="contact-value">_y55h</span>
                                 </span>
                                 <span class="contact-action">
                                     <svg class="icon icon-copy"><use href="#i-copy"/></svg>
@@ -315,7 +318,7 @@
                     copyBtn.setAttribute("aria-label", "Discord copiado");
                     setTimeout(() => {
                         copyBtn.classList.remove("copied");
-                        copyBtn.setAttribute("aria-label", "Copiar Discord 2024.s");
+                        copyBtn.setAttribute("aria-label", "Copiar Discord _y55h");
                     }, 1800);
                 }).catch(() => {});
             });
@@ -324,16 +327,21 @@
         const DISCORD_USER_ID = "1310038822612111481";
         const LANYARD_REST = "https://api.lanyard.rest/v1/users/";
         const LANYARD_WS = "wss://api.lanyard.rest/socket";
+        const PROFILE_REST = "https://dcdn.dstn.to/profile/";
+        const DISCORD_BIO = "";
         const STATUS_LABEL = { online: "online", idle: "ausente", dnd: "não perturbe", offline: "offline" };
         const ACTIVITY_LABEL = { 0: "Jogando", 1: "Transmitindo", 2: "Ouvindo", 3: "Assistindo" };
+        let presenceLoaded = false;
 
         const dc = {
             card: document.getElementById("discordCard"),
             conn: document.getElementById("dcConn"),
             connText: document.getElementById("dcConnText"),
             dot: document.getElementById("dcDot"),
+            bannerImg: document.getElementById("dcBannerImg"),
             name: document.getElementById("dcName"),
             user: document.getElementById("dcUser"),
+            badges: document.getElementById("dcBadges"),
             status: document.getElementById("dcStatus"),
             activity: document.getElementById("dcActivity"),
             activityLabel: document.getElementById("dcActivityLabel"),
@@ -343,6 +351,7 @@
             activityIcon: document.getElementById("dcActivityIcon"),
             avatarImg: document.getElementById("dcAvatarImg"),
             avatarLetter: document.getElementById("dcAvatarLetter"),
+            bio: document.getElementById("dcBio"),
             copy: document.getElementById("dcCopy"),
             copyLabel: document.getElementById("dcCopyLabel"),
             open: document.getElementById("dcOpen"),
@@ -453,7 +462,8 @@
                 : (typeof u.global_name === "string" && u.global_name ? u.global_name : u.username);
             const shown = display || u.username || "Marco";
             dc.name.textContent = shown;
-            dc.user.textContent = u.username ? "@" + u.username : "@2024.s";
+            dc.user.textContent = u.username ? "@" + u.username : "@_y55h";
+            presenceLoaded = true;
             dc.avatarLetter.textContent = shown.trim().charAt(0).toLowerCase() || "x";
             renderAvatar(u);
             const label = STATUS_LABEL[p.discord_status] || p.discord_status;
@@ -479,6 +489,84 @@
         function markUpdated() {
             dc.updated.hidden = false;
             dc.updated.textContent = "atualizado às " + new Date().toLocaleTimeString("pt-BR");
+        }
+
+        function renderProfile(p) {
+            const u = p && typeof p === "object" ? p.user : null;
+            if (!u || typeof u !== "object" || u.id !== DISCORD_USER_ID) return;
+            if (typeof u.banner === "string" && u.banner) {
+                const ext = u.banner.startsWith("a_") ? "gif" : "png";
+                const url = "https://cdn.discordapp.com/banners/" + encodeURIComponent(u.id) + "/" + encodeURIComponent(u.banner) + "." + ext + "?size=600";
+                const img = new Image();
+                img.alt = "";
+                img.referrerPolicy = "no-referrer";
+                img.onload = () => {
+                    dc.bannerImg.src = url;
+                    dc.bannerImg.hidden = false;
+                };
+                img.onerror = () => {};
+                img.src = url;
+            } else if (typeof u.banner_color === "string" && /^#[0-9a-fA-F]{6}$/.test(u.banner_color)) {
+                dc.bannerImg.parentElement.style.background = u.banner_color;
+            }
+            if (Array.isArray(u.badges)) {
+                const valid = u.badges.filter(b => b && typeof b.icon === "string" && typeof b.description === "string").slice(0, 6);
+                if (valid.length) {
+                    dc.badges.replaceChildren();
+                    for (const b of valid) {
+                        const el = document.createElement("img");
+                        el.className = "discord-badge";
+                        el.alt = b.description;
+                        el.title = b.description;
+                        el.referrerPolicy = "no-referrer";
+                        el.onerror = () => el.remove();
+                        el.src = "https://cdn.discordapp.com/badge-icons/" + encodeURIComponent(b.icon) + ".png";
+                        dc.badges.appendChild(el);
+                    }
+                    dc.badges.hidden = false;
+                }
+            }
+            const bio = typeof u.bio === "string" ? u.bio.trim() : "";
+            const manualBio = DISCORD_BIO.trim();
+            const finalBio = bio || manualBio;
+            if (finalBio) {
+                dc.bio.hidden = false;
+                dc.bio.textContent = finalBio;
+            }
+            if (!presenceLoaded) {
+                if (typeof u.global_name === "string" && u.global_name) dc.name.textContent = u.global_name;
+                else if (typeof u.username === "string" && u.username) dc.name.textContent = u.username;
+                if (typeof u.username === "string" && u.username) dc.user.textContent = "@" + u.username;
+                if (typeof u.avatar === "string" && u.avatar) {
+                    renderAvatar(u);
+                }
+            }
+        }
+
+        function fetchProfile() {
+            if (!DISCORD_USER_ID) return;
+            const key = "dcProfile:" + DISCORD_USER_ID;
+            let cached = null;
+            try {
+                const raw = sessionStorage.getItem(key);
+                if (raw) {
+                    const c = JSON.parse(raw);
+                    if (c && typeof c.t === "number" && Date.now() - c.t < 300000 && c.v) cached = c.v;
+                }
+            } catch {}
+            if (cached) {
+                renderProfile(cached);
+                return;
+            }
+            fetch(PROFILE_REST + encodeURIComponent(DISCORD_USER_ID))
+                .then(r => r.ok ? r.json() : Promise.reject(r.status))
+                .then(p => {
+                    renderProfile(p);
+                    try {
+                        sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: p }));
+                    } catch {}
+                })
+                .catch(() => {});
         }
 
         let ws = null;
@@ -567,6 +655,7 @@
         }
 
         if (dc.card && DISCORD_USER_ID) {
+            fetchProfile();
             fetch(LANYARD_REST + encodeURIComponent(DISCORD_USER_ID))
                 .then(r => r.ok ? r.json() : Promise.reject(r.status))
                 .then(body => {
@@ -599,12 +688,12 @@
         } else if (dc.card) {
             renderUnavailable("presença não configurada — defina DISCORD_USER_ID");
             dc.name.textContent = "Marco";
-            dc.user.textContent = "@2024.s";
+            dc.user.textContent = "@_y55h";
         }
 
         if (dc.copy) {
             dc.copy.addEventListener("click", () => {
-                navigator.clipboard.writeText(DISCORD_USER_ID || "2024.s").then(() => {
+                navigator.clipboard.writeText(DISCORD_USER_ID || "_y55h").then(() => {
                     dc.copy.classList.add("copied");
                     dc.copyLabel.textContent = "copiado";
                     setTimeout(() => {
@@ -612,7 +701,7 @@
                         dc.copyLabel.textContent = "Copiar";
                     }, 1800);
                 }).catch(() => {
-                    dc.copyLabel.textContent = DISCORD_USER_ID || "2024.s";
+                    dc.copyLabel.textContent = DISCORD_USER_ID || "_y55h";
                 });
             });
         }

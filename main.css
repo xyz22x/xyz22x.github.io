@@ -726,12 +726,21 @@ h2 {
 }
 
 .discord-banner {
+    position: relative;
     height: 92px;
     background:
         radial-gradient(24rem 10rem at 20% 0%, rgba(139, 92, 246, 0.35), transparent 70%),
         radial-gradient(18rem 8rem at 90% 110%, rgba(139, 92, 246, 0.22), transparent 70%),
         linear-gradient(120deg, #14101f, #18181b 55%, #14101f);
     border-bottom: 1px solid var(--line);
+}
+
+.discord-banner-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .discord-head {
@@ -850,6 +859,24 @@ h2 {
     font-size: 0.9rem;
     color: var(--muted);
     overflow-wrap: anywhere;
+}
+
+.discord-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+}
+
+.discord-badge {
+    height: 1rem;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+}
+
+.discord-badge:hover {
+    opacity: 1;
 }
 
 .discord-status {
