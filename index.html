@@ -1,41 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xyz22</title>
+    <meta name="description" content="Portfólio de xyz22 — programador Python, C e Java. Projetos, estudos e contato.">
+    <meta property="og:title" content="xyz22 — Portfólio">
+    <meta property="og:description" content="Programador Python, C e Java. Veja meus projetos.">
+    <meta property="og:type" content="website">
+    <title>xyz22 — Portfólio</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <script>
-        alert("s2");
-    </script>
-    <div class="container">
-        <h1> Portfólio </h1>
-        <h3> Sobre: tenho 14 anos</h3>
-        <h3> Estou estudando programação há 2 anos</h3>
-        <h3> Tenho mais experiência em:</h3>
-        <h4> Python,C e Java</h4>
-        <h3> Quero aprender: C++,TypeScript,Go</h3>
-
-    </div>
-    <div class="projects">
-        <h3> Projetos: </h3>
-        <div class="project-list">
-            <ol>
-                <li> <a href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank"> Selfbot do discord que tem como objetivo farmar tempo em call com um rpc: "22 bot's" </a> </li>
-                <li> <a href="https://github.com/xyz22x/RATInpy" target="_blank"> RAT feito em python que tem como objetivo roubar informações do pc da vítima </a> </li>
-                <li> <a href="https://github.com/xyz22x/systemWHOIS" target="_blank"> Sistema de whois feito em java(8+) que tem como objetivo pegar informações de um domínio da internet </a> </li>
-                <li> <a href="https://github.com/xyz22x/NewFlappyBird" target="_blank"> Jogo do flappy bird feito em java com a biblioteca swing </a> </li>
-            </ol>
-    </div>
-    <div class="contato">
-        <h3> Contato: </h3>
-        <div class="contact-info">
-            <h4> Discord: 2024.s</h4>
-            <h4> Instagram: <a href="https://instagram.com/marcoscdz22" target="_blank"> @marcoscdz22 </a> </h4>
+    <header class="hero">
+        <div class="container">
+            <p class="kicker">portfólio</p>
+            <h1>xyz22</h1>
+            <p class="tagline">Programador Python · C · Java</p>
+            <nav class="menu">
+                <a href="#sobre">Sobre</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#contato">Contato</a>
+            </nav>
         </div>
-    </div>
-</div>
+    </header>
+
+    <section id="sobre" class="container">
+        <h2>Sobre</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <span class="about-num">14</span>
+                <p>anos de idade</p>
+            </div>
+            <div class="about-card">
+                <span class="about-num">2</span>
+                <p>anos estudando programação</p>
+            </div>
+            <div class="about-card">
+                <span class="about-num">3</span>
+                <p>linguagens no dia a dia</p>
+            </div>
+        </div>
+        <div class="skills">
+            <h3>Experiência:</h3>
+            <div class="chips">
+                <span class="chip solid">Python</span>
+                <span class="chip solid">C</span>
+                <span class="chip solid">Java</span>
+            </div>
+            <h3>Quero aprender:</h3>
+            <div class="chips">
+                <span class="chip">C++</span>
+                <span class="chip">TypeScript</span>
+                <span class="chip">Go</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projetos" class="container">
+        <h2>Projetos</h2>
+        <div class="project-list">
+            <a class="project" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
+                <span class="project-name">VoiceCord with RPC</span>
+                <span class="project-desc">Selfbot do Discord para farmar tempo em call com um RPC: "22 bot's"</span>
+                <span class="project-lang">Python</span>
+            </a>
+            <a class="project" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
+                <span class="project-name">RATInpy</span>
+                <span class="project-desc">RAT feito em Python com objetivo de coletar informações do PC da vítima</span>
+                <span class="project-lang">Python</span>
+            </a>
+            <a class="project" href="https://github.com/xyz22x/systemWHOIS" target="_blank" rel="noopener">
+                <span class="project-name">systemWHOIS</span>
+                <span class="project-desc">Sistema de whois (Java 8+) para pegar informações de um domínio da internet</span>
+                <span class="project-lang">Java</span>
+            </a>
+            <a class="project" href="https://github.com/xyz22x/NewFlappyBird" target="_blank" rel="noopener">
+                <span class="project-name">New Flappy Bird</span>
+                <span class="project-desc">Jogo do Flappy Bird feito em Java com a biblioteca Swing</span>
+                <span class="project-lang">Java</span>
+            </a>
+        </div>
+    </section>
+
+    <section id="contato" class="container">
+        <h2>Contato</h2>
+        <div class="contact-info">
+            <a class="contact-card" href="https://discord.com/users/" target="_blank" rel="noopener">
+                <span class="contact-label">Discord</span>
+                <span class="contact-value">2024.s</span>
+            </a>
+            <a class="contact-card" href="https://instagram.com/marcoscdz22" target="_blank" rel="noopener">
+                <span class="contact-label">Instagram</span>
+                <span class="contact-value">@marcoscdz22</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 xyz22 · feito à mão</p>
+    </footer>
 </body>
 </html>
