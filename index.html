@@ -147,17 +147,17 @@
                     <a class="project" href="https://github.com/xyz22x/VoiceCord-with-rpc" target="_blank" rel="noopener">
                         <span class="project-body">
                             <span class="project-title">VoiceCord with RPC</span>
-                            <span class="project-desc">Selfbot do Discord para atividades relacionadas a RPC.</span>
+                            <span class="project-desc">Selfbot do Discord para atividades relacionadas a RPC. Experimento descontinuado: viola os ToS do Discord e está arquivado.</span>
                         </span>
                         <span class="project-foot">
-                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Python · Arquivado</span>
                             <span class="project-link">Repositório <svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
                         </span>
                     </a>
                     <a class="project" href="https://github.com/xyz22x/RATInpy" target="_blank" rel="noopener">
                         <span class="project-body">
                             <span class="project-title">Inpy — Python RAT</span>
-                            <span class="project-desc">Ferramenta em Python para coleta de informações do computador.</span>
+                            <span class="project-desc">Ferramenta em Python para coleta de informações do computador. Estudo para ambientes locais e controlados.</span>
                         </span>
                         <span class="project-foot">
                             <span class="project-tag">Python</span>
@@ -660,9 +660,13 @@
 
         if (dc.card && DISCORD_USER_ID) {
             fetchProfile();
+            const presenceTimeout = setTimeout(() => {
+                if (!presenceLoaded) renderUnavailable("presenca indisponivel agora");
+            }, 8000);
             fetch(LANYARD_REST + encodeURIComponent(DISCORD_USER_ID))
                 .then(r => r.ok ? r.json() : Promise.reject(r.status))
                 .then(body => {
+                    clearTimeout(presenceTimeout);
                     if (body && body.success && isPresence(body.data)) {
                         renderPresence(body.data);
                         markUpdated();
@@ -673,6 +677,7 @@
                     }
                 })
                 .catch(status => {
+                    clearTimeout(presenceTimeout);
                     if (status === 404) {
                         renderUnavailable("conta não monitorada — entre no servidor do Lanyard para ativar");
                     } else {
