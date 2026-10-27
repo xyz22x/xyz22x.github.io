@@ -175,7 +175,7 @@
                     Meus canais diretos.
                 </p>
                 <div class="contact-layout reveal">
-                    <article class="discord-card" id="discordCard" aria-busy="true">
+                    <article class="discord-card" id="discordCard">
                         <div class="discord-banner" aria-hidden="true">
                             <img class="discord-banner-img" id="dcBannerImg" alt="" hidden>
                         </div>
@@ -183,12 +183,7 @@
                             <div class="discord-avatar">
                                 <img id="dcAvatarImg" alt="Avatar do Discord" hidden>
                                 <span id="dcAvatarLetter">m</span>
-                                <span class="presence-dot unknown" id="dcDot" title="presença desconhecida"></span>
                             </div>
-                            <span class="conn-pill conn-loading" id="dcConn">
-                                <span class="conn-dot"></span>
-                                <span id="dcConnText">conectando</span>
-                            </span>
                         </div>
                         <div class="discord-info">
                             <p class="discord-name">
@@ -196,20 +191,6 @@
                             </p>
                             <p class="discord-username" id="dcUser">@_y55h</p>
                             <div class="discord-badges" id="dcBadges" hidden></div>
-                            <p class="discord-status" id="dcStatus">carregando presença…</p>
-                        </div>
-                        <div class="discord-activity" id="dcActivity" hidden>
-                            <span class="activity-label" id="dcActivityLabel">Atividade</span>
-                            <div class="activity-row">
-                                <span class="activity-media" id="dcActivityImg" hidden></span>
-                                <span class="activity-media activity-media-icon" id="dcActivityIcon">
-                                    <svg class="icon"><use href="#i-terminal"/></svg>
-                                </span>
-                                <span class="activity-body">
-                                    <span class="activity-name" id="dcActivityName"></span>
-                                    <span class="activity-meta" id="dcActivityMeta" hidden></span>
-                                </span>
-                            </div>
                         </div>
                         <p class="discord-bio" id="dcBio" hidden></p>
                         <div class="discord-actions">
@@ -218,12 +199,11 @@
                                 <svg class="icon icon-check"><use href="#i-check"/></svg>
                                 <span id="dcCopyLabel">Copiar</span>
                             </button>
-                            <a class="btn btn-primary" id="dcOpen" href="https://discord.com/users/" hidden>
+                            <a class="btn btn-primary" id="dcOpen" href="https://discord.com/users/1310038822612111481" target="_blank" rel="noopener">
                                 Abrir perfil
                                 <svg class="icon"><use href="#i-arrow-up-right"/></svg>
                             </a>
                         </div>
-                        <p class="discord-updated" id="dcUpdated" hidden>atualizado às --:--:--</p>
                     </article>
                     <div class="contact-side">
                         <div class="contact-grid">
@@ -325,58 +305,20 @@
         }
 
         const DISCORD_USER_ID = "1310038822612111481";
-        const LANYARD_REST = "https://api.lanyard.rest/v1/users/";
-        const LANYARD_WS = "wss://api.lanyard.rest/socket";
         const PROFILE_REST = "https://dcdn.dstn.to/profile/";
         const DISCORD_BIO = "";
-        const STATUS_LABEL = { online: "online", idle: "ausente", dnd: "não perturbe", offline: "offline" };
-        const ACTIVITY_LABEL = { 0: "Jogando", 1: "Transmitindo", 2: "Ouvindo", 3: "Assistindo" };
-        let presenceLoaded = false;
 
         const dc = {
-            card: document.getElementById("discordCard"),
-            conn: document.getElementById("dcConn"),
-            connText: document.getElementById("dcConnText"),
-            dot: document.getElementById("dcDot"),
             bannerImg: document.getElementById("dcBannerImg"),
             name: document.getElementById("dcName"),
             user: document.getElementById("dcUser"),
             badges: document.getElementById("dcBadges"),
-            status: document.getElementById("dcStatus"),
-            activity: document.getElementById("dcActivity"),
-            activityLabel: document.getElementById("dcActivityLabel"),
-            activityName: document.getElementById("dcActivityName"),
-            activityMeta: document.getElementById("dcActivityMeta"),
-            activityImg: document.getElementById("dcActivityImg"),
-            activityIcon: document.getElementById("dcActivityIcon"),
             avatarImg: document.getElementById("dcAvatarImg"),
             avatarLetter: document.getElementById("dcAvatarLetter"),
             bio: document.getElementById("dcBio"),
             copy: document.getElementById("dcCopy"),
-            copyLabel: document.getElementById("dcCopyLabel"),
-            open: document.getElementById("dcOpen"),
-            updated: document.getElementById("dcUpdated")
+            copyLabel: document.getElementById("dcCopyLabel")
         };
-
-        function setConn(state) {
-            dc.conn.classList.remove("conn-loading", "conn-live", "conn-down");
-            dc.conn.classList.add(state === "live" ? "conn-live" : state === "down" ? "conn-down" : "conn-loading");
-            dc.connText.textContent = state === "live" ? "tempo real" : state === "down" ? "indisponível" : "conectando";
-        }
-
-        function isPresence(p) {
-            return !!p && typeof p === "object"
-                && p.discord_user && typeof p.discord_user === "object"
-                && typeof p.discord_user.id === "string"
-                && typeof p.discord_status === "string"
-                && ["online", "idle", "dnd", "offline"].includes(p.discord_status)
-                && Array.isArray(p.activities);
-        }
-
-        function setDot(state, label) {
-            dc.dot.className = "presence-dot " + state;
-            dc.dot.title = label;
-        }
 
         function renderAvatar(u) {
             const hash = typeof u.avatar === "string" && u.avatar ? u.avatar : null;
@@ -397,98 +339,6 @@
                 dc.avatarLetter.hidden = false;
             };
             img.src = url;
-        }
-
-        function activityImage(a) {
-            if (!a || !a.assets) return null;
-            const raw = typeof a.assets.large_image === "string" && a.assets.large_image
-                ? a.assets.large_image
-                : (typeof a.assets.small_image === "string" ? a.assets.small_image : null);
-            if (!raw) return null;
-            if (raw.startsWith("spotify:")) return "https://i.scdn.co/image/" + raw.slice("spotify:".length);
-            if (!/^[a-f0-9]{16,32}$/i.test(raw) || typeof a.application_id !== "string") return null;
-            return "https://cdn.lanyard.net/" + encodeURIComponent(a.application_id) + "/" + encodeURIComponent(raw) + ".png";
-        }
-
-        function renderActivity(p) {
-            if (p.listening_to_spotify === true && p.spotify && typeof p.spotify.song === "string") {
-                showActivity("Ouvindo", p.spotify.song, p.spotify.artist || p.spotify.album || null, p.spotify.album_art_url);
-                return;
-            }
-            const list = p.activities.filter(a => a && typeof a.name === "string" && typeof a.type === "number" && a.type >= 0 && a.type <= 3);
-            const a = list[0];
-            if (!a) {
-                dc.activity.hidden = true;
-                return;
-            }
-            const meta = [a.details, a.state].filter(v => typeof v === "string" && v.trim()).join(" · ");
-            showActivity(ACTIVITY_LABEL[a.type] || "Atividade", a.name, meta || null, activityImage(a));
-        }
-
-        function showActivity(label, name, meta, imgUrl) {
-            dc.activityLabel.textContent = label;
-            dc.activityName.textContent = name;
-            if (meta) {
-                dc.activityMeta.hidden = false;
-                dc.activityMeta.textContent = meta;
-            } else {
-                dc.activityMeta.hidden = true;
-            }
-            if (typeof imgUrl === "string" && imgUrl.startsWith("https://")) {
-                const img = new Image();
-                img.alt = "";
-                img.referrerPolicy = "no-referrer";
-                img.onload = () => {
-                    dc.activityImg.replaceChildren(img);
-                    dc.activityImg.hidden = false;
-                    dc.activityIcon.hidden = true;
-                };
-                img.onerror = () => {
-                    dc.activityImg.hidden = true;
-                    dc.activityIcon.hidden = false;
-                };
-                img.src = imgUrl;
-            } else {
-                dc.activityImg.hidden = true;
-                dc.activityIcon.hidden = false;
-            }
-            dc.activity.hidden = false;
-        }
-
-        function renderPresence(p) {
-            const u = p.discord_user;
-            const display = typeof u.display_name === "string" && u.display_name
-                ? u.display_name
-                : (typeof u.global_name === "string" && u.global_name ? u.global_name : u.username);
-            const shown = display || u.username || "Marco";
-            dc.name.textContent = shown;
-            dc.user.textContent = u.username ? "@" + u.username : "@_y55h";
-            presenceLoaded = true;
-            dc.avatarLetter.textContent = shown.trim().charAt(0).toLowerCase() || "x";
-            renderAvatar(u);
-            const label = STATUS_LABEL[p.discord_status] || p.discord_status;
-            setDot(p.discord_status, label);
-            const custom = p.activities.find(a => a && a.type === 4 && typeof a.state === "string" && a.state.trim());
-            dc.status.textContent = custom ? label + " — " + custom.state.trim() : label;
-            renderActivity(p);
-            if (DISCORD_USER_ID) {
-                dc.open.hidden = false;
-                dc.open.href = "https://discord.com/users/" + encodeURIComponent(DISCORD_USER_ID);
-            }
-            dc.card.setAttribute("aria-busy", "false");
-        }
-
-        function renderUnavailable(reason) {
-            setConn("down");
-            setDot("unknown", "presença desconhecida");
-            dc.status.textContent = reason || "presença indisponível agora";
-            dc.activity.hidden = true;
-            dc.card.setAttribute("aria-busy", "false");
-        }
-
-        function markUpdated() {
-            dc.updated.hidden = false;
-            dc.updated.textContent = "atualizado às " + new Date().toLocaleTimeString("pt-BR");
         }
 
         function renderProfile(p) {
@@ -533,14 +383,15 @@
                 dc.bio.hidden = false;
                 dc.bio.textContent = finalBio;
             }
-            if (!presenceLoaded) {
-                if (typeof u.global_name === "string" && u.global_name) dc.name.textContent = u.global_name;
-                else if (typeof u.username === "string" && u.username) dc.name.textContent = u.username;
-                if (typeof u.username === "string" && u.username) dc.user.textContent = "@" + u.username;
-                if (typeof u.avatar === "string" && u.avatar) {
-                    renderAvatar(u);
-                }
+            const name = (typeof u.global_name === "string" && u.global_name)
+                || (typeof u.display_name === "string" && u.display_name)
+                || (typeof u.username === "string" ? u.username : "");
+            if (name) {
+                dc.name.textContent = name;
+                dc.avatarLetter.textContent = name.trim().charAt(0).toLowerCase() || "m";
             }
+            if (typeof u.username === "string" && u.username) dc.user.textContent = "@" + u.username;
+            if (typeof u.avatar === "string" && u.avatar) renderAvatar(u);
         }
 
         function fetchProfile() {
@@ -569,127 +420,7 @@
                 .catch(() => {});
         }
 
-        let ws = null;
-        let hb = null;
-        let attempts = 0;
-        let stopped = false;
-
-        function clearHb() {
-            if (hb) {
-                clearInterval(hb);
-                hb = null;
-            }
-        }
-
-        function scheduleReconnect() {
-            if (stopped) return;
-            const delay = Math.min(1000 * Math.pow(2, attempts), 30000) + Math.floor(Math.random() * 500);
-            attempts++;
-            setConn("loading");
-            setTimeout(() => {
-                if (!stopped && !document.hidden) connectLanyard();
-            }, delay);
-        }
-
-        function onMessage(ev) {
-            let msg;
-            try {
-                msg = JSON.parse(ev.data);
-            } catch {
-                return;
-            }
-            if (!msg || typeof msg.op !== "number") return;
-            if (msg.op === 1) {
-                const iv = msg.d && typeof msg.d.heartbeat_interval === "number" ? msg.d.heartbeat_interval : 30000;
-                clearHb();
-                hb = setInterval(() => {
-                    if (ws && ws.readyState === 1) ws.send(JSON.stringify({ op: 3 }));
-                }, iv);
-                if (ws && ws.readyState === 1) {
-                    ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_USER_ID } }));
-                }
-                return;
-            }
-            if (msg.op === 0 && (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE")) {
-                attempts = 0;
-                if (!isPresence(msg.d)) return;
-                setConn("live");
-                renderPresence(msg.d);
-                markUpdated();
-            }
-        }
-
-        function connectLanyard() {
-            if (stopped || !DISCORD_USER_ID) return;
-            if (ws && (ws.readyState === 0 || ws.readyState === 1)) return;
-            setConn("loading");
-            try {
-                ws = new WebSocket(LANYARD_WS);
-            } catch {
-                scheduleReconnect();
-                return;
-            }
-            ws.onmessage = onMessage;
-            ws.onclose = (e) => {
-                clearHb();
-                ws = null;
-                if (stopped) return;
-                if ([4004, 4005, 4006].includes(e.code)) {
-                    renderUnavailable();
-                    return;
-                }
-                scheduleReconnect();
-            };
-            ws.onerror = () => {};
-        }
-
-        function stopLanyard() {
-            stopped = true;
-            clearHb();
-            if (ws) {
-                ws.onclose = null;
-                ws.onmessage = null;
-                ws.close();
-                ws = null;
-            }
-        }
-
-        if (dc.card && DISCORD_USER_ID) {
-            fetchProfile();
-            fetch(LANYARD_REST + encodeURIComponent(DISCORD_USER_ID))
-                .then(r => r.ok ? r.json() : Promise.reject(r.status))
-                .then(body => {
-                    if (body && body.success && isPresence(body.data)) {
-                        setConn("live");
-                        renderPresence(body.data);
-                        markUpdated();
-                        connectLanyard();
-                    } else {
-                        renderUnavailable();
-                        connectLanyard();
-                    }
-                })
-                .catch(status => {
-                    if (status === 404) {
-                        renderUnavailable("conta não monitorada — entre no servidor do Lanyard para ativar");
-                    } else {
-                        renderUnavailable();
-                    }
-                    connectLanyard();
-                });
-            document.addEventListener("pagehide", stopLanyard);
-            document.addEventListener("visibilitychange", () => {
-                if (!document.hidden && stopped) {
-                    stopped = false;
-                    attempts = 0;
-                    connectLanyard();
-                }
-            });
-        } else if (dc.card) {
-            renderUnavailable("presença não configurada — defina DISCORD_USER_ID");
-            dc.name.textContent = "Marco";
-            dc.user.textContent = "@_y55h";
-        }
+        fetchProfile();
 
         if (dc.copy) {
             dc.copy.addEventListener("click", () => {
